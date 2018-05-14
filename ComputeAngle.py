@@ -4,7 +4,7 @@ import re
 def compute_angle(vector_query, vector_doc):
     product = 0
     lenght_query = 0
-    lenght_doc = 0
+    lenght_doc = 0 
 
     for term in vector_query.keys():
         product = product + vector_query[term]* vector_doc.get(term, 0)

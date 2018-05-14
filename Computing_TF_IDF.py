@@ -12,6 +12,7 @@ import re
 
 
 def computeIDF(subfolder, stop):
+    '''Tính số lần 1 từ xuất hiện trong 20k file'''
     global maxtrixx
     for file in os.listdir('./20_newsgroups/%s'%subfolder):
         with open('./20_newsgroups/%s/%s'%(subfolder, file), 'r') as myfile:
@@ -57,6 +58,8 @@ def saveFile(matrix, folder, files):
 
 
 def compute_tfidf_doc(matrix, folder):
+    '''Mỗi folder có 100 files --> chia ra 3 thread để tính tf-idf và lưu file trong function saveFile()'''
+
     if not os.path.exists('./TF_IDF_DOCS/%s'%folder):
         os.makedirs('./TF_IDF_DOCS/%s'%folder)
     count = 0
@@ -83,7 +86,7 @@ def compute_tfidf_doc(matrix, folder):
     for t in threads:
         t.join()
 
-maxtrixx = {} # (word : frequency)
+maxtrixx = {} # (word : frequency) lưu tần số xuất hiện của tất cả các từ trong 20k file, dùng để tính idf nhanh hơn
 def getMatrix():
     global maxtrixx
     stop = []
